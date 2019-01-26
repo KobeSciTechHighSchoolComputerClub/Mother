@@ -33,12 +33,15 @@ public class BabyAction : MonoBehaviour
             d.transform.position = hit.point;
             d.transform.parent = hit.collider.transform;
             catchLength = hit.distance;
+            CatchPoint = d;
         }
 
         if(CatchPoint != null)
         {
             Vector3 point = this.transform.position + this.transform.forward * catchLength;
-            point = (point - CatchPoint.transform.position).normalized * CatchPower;
+            point = (point - CatchPoint.transform.position).normalized;
+            point = point.normalized * Mathf.Min(point.magnitude, 2f) * CatchPower;
+            CatchPoint.transform.parent.GetComponent<Rigidbody>().AddForce(point);
         }
     }
 }
