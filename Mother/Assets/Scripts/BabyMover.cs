@@ -35,6 +35,7 @@ public class BabyMover : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if (!Physics.Raycast(tra.position,-tra.up,out hit,Mask)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
+            d.GetComponentInChildren<Animator>().SetBool("Scratching", CameraAC.GetBool("Standing"));
             d.transform.position = hit.point + hit.normal * 0.01f;
             d.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.Cross(this.transform.right,hit.normal));
             d.transform.localScale = tra.localScale * d.transform.localScale.x;
