@@ -11,11 +11,13 @@ public class BabyMover : MonoBehaviour
     public Transform[] HandPoints;
     private int handCount;
     private bool searchedWall;
+    private bool canOperate;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(makeHandStamps());
         searchedWall = false;
+        canOperate = true;
     }
     private IEnumerator makeHandStamps()
     {
@@ -39,13 +41,17 @@ public class BabyMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canOperate)
+        {
+            return;
+        }
         babymove();
         if (searchWall() )
         {
             if (!searchedWall)
             {
                 searchedWall = true;
-                print("クララが立った");
+                StartCoroutine(lookWall());
             }
         }
         else
@@ -61,11 +67,37 @@ public class BabyMover : MonoBehaviour
         float searchRange = SearchRange + getRadiusZ();
         if (Physics.Raycast(ray, out hit, searchRange))
         {
-            return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Rad2Deg);
+            return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Deg2Rad);
         }
         return false;
     }
+    public Vector3 getWallForward()
+    {
+        Ray ray = new Ray(this.transform.position, getForward());
+        RaycastHit hit = new RaycastHit();
+        float searchRange = SearchRange + getRadiusZ();
+        Physics.Raycast(ray, out hit, searchRange);
+        return -hit.normal;
+    }
+    private IEnumerator lookWall()
+    {
+        Vector3 sv = getForward();
+        Vector3 tv = getWallForward();
+        tv.y = 0f;
+        tv.Normalize();
+        canOperate = false;
+        float usetime = Mathf.Abs(Mathf.Acos(Vector3.Dot(tv, sv)) * Mathf.Rad2Deg / 10f);
+        float startTime = Time.time;
 
+        while (true)
+        {
+            if (Time.time - startTime > usetime) break;
+            this.transform.rotation = Quaternion.LookRotation(Vector3.Lerp(sv, tv, (Time.time - startTime) / usetime), Vector3.up);
+            yield return null;
+        }
+        this.transform.rotation = Quaternion.LookRotation(tv, Vector3.up);
+        canOperate = true;
+    }
     private float getRadiusZ()
     {
         BoxCollider boxCollider = this.GetComponent<BoxCollider>();
