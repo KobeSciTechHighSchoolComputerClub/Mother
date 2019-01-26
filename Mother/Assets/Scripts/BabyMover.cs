@@ -14,13 +14,14 @@ public class BabyMover : MonoBehaviour
     private int handCount;
     private bool searchedWall;
     public bool canOperate;
+    public LayerMask Mask;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(makeHandStamps());
         searchedWall = false;
         canOperate = true;
-        CameraAC = Camera.main.GetComponent<Animator>();
+        CameraAC = this.GetComponent<Animator>();
     }
     private IEnumerator makeHandStamps()
     {
@@ -29,7 +30,7 @@ public class BabyMover : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
             Ray ray = new Ray(tra.position, Vector3.down);
-            if (!Physics.Raycast(ray, SearchRange * 10f)) continue;
+            if (!Physics.Raycast(ray, SearchRange * 10f,Mask)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
             d.transform.position = tra.position;
             d.transform.rotation = Quaternion.LookRotation(Vector3.up, getForward());
@@ -74,7 +75,7 @@ public class BabyMover : MonoBehaviour
         Ray ray = new Ray(this.transform.position, fo);
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
-        if (Physics.Raycast(ray, out hit, searchRange))
+        if (Physics.Raycast(ray, out hit, searchRange,Mask))
         {
             return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Deg2Rad);
         }
@@ -85,7 +86,7 @@ public class BabyMover : MonoBehaviour
         Ray ray = new Ray(this.transform.position, getForward());
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
-        Physics.Raycast(ray, out hit, searchRange);
+        Physics.Raycast(ray, out hit, searchRange,Mask);
         return -hit.normal;
     }
     private IEnumerator lookWall()
