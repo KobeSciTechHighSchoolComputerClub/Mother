@@ -484,7 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BabySpeed: 0.23
-  HandStamp: {fileID: 1233311010594595892, guid: 2f27c73b09d924e49a11e9276f9f72dd,
+  SearchRange: 0
+  SearchAngle: 0
+  HandStamp: {fileID: 703475826513918462, guid: 7a666eae830b0ee4b96404e74d5eaf54,
     type: 3}
   HandPoints:
   - {fileID: 1034281208}
