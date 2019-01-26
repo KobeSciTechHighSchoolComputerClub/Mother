@@ -20,7 +20,7 @@ public class BabyMover : MonoBehaviour
         StartCoroutine(makeHandStamps());
         searchedWall = false;
         canOperate = true;
-        CameraAC = GetComponentInChildren<Animator>();
+        CameraAC = Camera.main.GetComponent<Animator>();
     }
     private IEnumerator makeHandStamps()
     {
