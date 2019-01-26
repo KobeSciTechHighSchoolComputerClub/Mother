@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class DropDownSensor : MonoBehaviour
 {
-    public bool isFlying = false;
+    BabyMover babyMover;
+    public bool isFront;
+    private void Start()
+    {
+        babyMover = transform.parent.GetComponent<BabyMover>();
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        isFlying = true;
+        if (isFront)
+            babyMover.TurnBack();
     }
     private void OnTriggerEnter(Collider other)
     {
-        isFlying = false;
+        if (!isFront)
+            babyMover.TurnBack();
     }
 }
