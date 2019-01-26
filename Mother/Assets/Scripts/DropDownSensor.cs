@@ -14,11 +14,15 @@ public class DropDownSensor : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (isFront)
+        {
             babyMover.TurnBack();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (!isFront)
+        {
             babyMover.TurnBack();
+        }
     }
 }

@@ -33,7 +33,7 @@ public class BabyMover : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
             RaycastHit hit = new RaycastHit();
-            if (!Physics.Raycast(tra.position,-tra.up,out hit,Mask)) continue;
+            if (!Physics.Raycast(tra.position, -tra.up, out hit,SearchRange*3f, Mask)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
             d.GetComponentInChildren<Animator>().SetBool("Scratching", CameraAC.GetBool("Standing"));
             d.transform.position = hit.point + hit.normal * 0.01f;
