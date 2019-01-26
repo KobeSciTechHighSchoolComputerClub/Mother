@@ -232,7 +232,7 @@ MonoBehaviour:
   BabySpeed: 0.23
   SearchRange: 0.1
   SearchAngle: 10
-  HandStamp: {fileID: 703475826513918462, guid: 7a666eae830b0ee4b96404e74d5eaf54,
+  HandStamp: {fileID: 3922059574150891174, guid: 9e037ee1fc2f2404bbebad54765c3343,
     type: 3}
   HandPoints:
   - {fileID: 7720607010780402693}
@@ -242,7 +242,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 311
-  TurnBackTime: 0
+  TurnBackTime: 0.4
 --- !u!108 &7720607010203328174
 Light:
   m_ObjectHideFlags: 0
