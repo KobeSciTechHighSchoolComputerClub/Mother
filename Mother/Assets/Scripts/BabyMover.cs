@@ -9,6 +9,7 @@ public class BabyMover : MonoBehaviour
     public float SearchAngle;
     public GameObject HandStamp;
     public Transform[] HandPoints;
+    public Animator CameraAC;
     private int handCount;
     private bool searchedWall;
     private bool canOperate;
@@ -57,6 +58,7 @@ public class BabyMover : MonoBehaviour
         else
         {
             searchedWall = false;
+            CameraAC.SetBool("Standing", false);
         }
     }
     private bool searchWall()
@@ -86,9 +88,8 @@ public class BabyMover : MonoBehaviour
         tv.y = 0f;
         tv.Normalize();
         canOperate = false;
-        float usetime = Mathf.Abs(Mathf.Acos(Vector3.Dot(tv, sv)) * Mathf.Rad2Deg / 10f);
+        float usetime = Mathf.Abs(Mathf.Acos(Vector3.Dot(tv, sv)) * Mathf.Rad2Deg / 50f);
         float startTime = Time.time;
-
         while (true)
         {
             if (Time.time - startTime > usetime) break;
@@ -96,7 +97,30 @@ public class BabyMover : MonoBehaviour
             yield return null;
         }
         this.transform.rotation = Quaternion.LookRotation(tv, Vector3.up);
+        CameraAC.SetBool("Standing", true);
+        yield return null;
+        StartCoroutine(WaitAnimationEnd("StandUp"));
+    }
+    private IEnumerator WaitAnimationEnd(string animatorName)
+    {
+        bool finish = false;
+        while (!finish)
+        {
+            AnimatorStateInfo nowState = CameraAC.GetCurrentAnimatorStateInfo(0);
+            if (nowState.IsName(animatorName))
+            {
+                finish = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
         canOperate = true;
+    }
+    public void SetCanOperate(bool flag)
+    {
+        canOperate = flag;
     }
     private float getRadiusZ()
     {
