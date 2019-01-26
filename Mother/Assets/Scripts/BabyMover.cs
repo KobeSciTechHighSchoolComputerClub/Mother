@@ -10,6 +10,7 @@ public class BabyMover : MonoBehaviour
     public GameObject HandStamp;
     public Transform[] HandPoints;
     private Animator CameraAC;
+    DropDownSensor frontSensor, backSensor;
     public AnimationClip StandUpClip;
     private int handCount;
     private bool searchedWall;
@@ -21,6 +22,8 @@ public class BabyMover : MonoBehaviour
         searchedWall = false;
         canOperate = true;
         CameraAC = Camera.main.GetComponent<Animator>();
+        frontSensor = transform.Find("FrontSensor").GetComponent<DropDownSensor>();
+        backSensor = transform.Find("BackSensor").GetComponent<DropDownSensor>();
     }
     private IEnumerator makeHandStamps()
     {
