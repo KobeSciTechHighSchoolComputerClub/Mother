@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1109598544}
   - component: {fileID: 1109598546}
   - component: {fileID: 1109598545}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 1831791534}
   - component: {fileID: 1831791536}
   - component: {fileID: 1831791535}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 7720607010203328169}
   - component: {fileID: 7720607010203328173}
   - component: {fileID: 1480655134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,6 +193,10 @@ MonoBehaviour:
   - {fileID: 7720607010618139225}
   StandUpClip: {fileID: 7400000, guid: c56f0e0bb932dca4c9abf0de25e59bc1, type: 2}
   canOperate: 0
+  Mask:
+    serializedVersion: 2
+    m_Bits: 311
+  TurnBackTime: 0
 --- !u!108 &7720607010203328174
 Light:
   m_ObjectHideFlags: 0
@@ -289,7 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7720607010618139225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7720607010780402693}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7720607011329361454}
   - component: {fileID: 7720607011329361449}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
