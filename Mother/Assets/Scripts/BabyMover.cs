@@ -9,28 +9,32 @@ public class BabyMover : MonoBehaviour
     public float SearchAngle;
     public GameObject HandStamp;
     public Transform[] HandPoints;
-    public Animator CameraAC;
+    private Animator CameraAC;
+    public AnimationClip StandUpClip;
     private int handCount;
     private bool searchedWall;
-    private bool canOperate;
+    public bool canOperate;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(makeHandStamps());
         searchedWall = false;
         canOperate = true;
+        CameraAC = GetComponentInChildren<Animator>();
     }
     private IEnumerator makeHandStamps()
     {
         while (true)
         {
+            yield return new WaitForSeconds(0.5f);
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
+            Ray ray = new Ray(tra.position, Vector3.down);
+            if (!Physics.Raycast(ray, SearchRange * 10f)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
             d.transform.position = tra.position;
             d.transform.rotation = Quaternion.LookRotation(Vector3.up, getForward());
             d.transform.localScale = tra.localScale * d.transform.localScale.x;
             Destroy(d, 10f);
-            yield return new WaitForSeconds(0.5f);
         }
     }
     private Vector3 getForward()
@@ -57,8 +61,11 @@ public class BabyMover : MonoBehaviour
         }
         else
         {
+            if (searchedWall)
+            {
+                CameraAC.SetBool("Standing", false);
+            }
             searchedWall = false;
-            CameraAC.SetBool("Standing", false);
         }
     }
     private bool searchWall()
@@ -85,8 +92,6 @@ public class BabyMover : MonoBehaviour
     {
         Vector3 sv = getForward();
         Vector3 tv = getWallForward();
-        tv.y = 0f;
-        tv.Normalize();
         canOperate = false;
         float usetime = Mathf.Abs(Mathf.Acos(Vector3.Dot(tv, sv)) * Mathf.Rad2Deg / 50f);
         float startTime = Time.time;
@@ -99,23 +104,7 @@ public class BabyMover : MonoBehaviour
         this.transform.rotation = Quaternion.LookRotation(tv, Vector3.up);
         CameraAC.SetBool("Standing", true);
         yield return null;
-        StartCoroutine(WaitAnimationEnd("StandUp"));
-    }
-    private IEnumerator WaitAnimationEnd(string animatorName)
-    {
-        bool finish = false;
-        while (!finish)
-        {
-            AnimatorStateInfo nowState = CameraAC.GetCurrentAnimatorStateInfo(0);
-            if (nowState.IsName(animatorName))
-            {
-                finish = true;
-            }
-            else
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
+        yield return new WaitForSeconds(StandUpClip.length);
         canOperate = true;
     }
     public void SetCanOperate(bool flag)
@@ -128,6 +117,16 @@ public class BabyMover : MonoBehaviour
         if (boxCollider != null)
         {
             return boxCollider.size.z / 2f;
+        }
+        SphereCollider sphereCollider = this.GetComponent<SphereCollider>();
+        if(sphereCollider != null)
+        {
+            return sphereCollider.radius;
+        }
+        CapsuleCollider capsuleCollider = this.GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            return capsuleCollider.radius;
         }
         return 0;
     }
