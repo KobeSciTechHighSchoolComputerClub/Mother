@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BabyMover : MonoBehaviour
+public class HOGE : MonoBehaviour
 {
     public float BabySpeed;
     public GameObject HandStamp;
@@ -49,7 +49,7 @@ public class BabyMover : MonoBehaviour
         float ver = Input.GetAxis("Vertical");
         float lv = Input.GetAxis("R_Stick_V");
         float lh = Input.GetAxis("R_Stick_H");
-        lh += Input.GetAxis("Mouse X");
+        lh += -Input.GetAxis("Mouse X");
         lv += Input.GetAxis("Mouse Y");
         this.transform.Rotate(0f, hor + lh, 0f, Space.World);
         Camera.main.transform.Rotate(lv, 0f, 0f, Space.Self);
