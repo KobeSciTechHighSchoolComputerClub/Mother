@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667546, g: 0.48427135, b: 0.5645225, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2485,6 +2485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenChair
       objectReference: {fileID: 0}
+    - target: {fileID: 1288264595, guid: 4be813bac05f64745aacd3f425e7e27e, type: 3}
+      propertyPath: m_TagString
+      value: CanMove
+      objectReference: {fileID: 0}
     - target: {fileID: 8247976019721793313, guid: 4be813bac05f64745aacd3f425e7e27e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2808,46 +2812,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7720607010203328175, guid: 1586f517a38ca8b4eabc35e8804ffa40,
+        type: 3}
+      propertyPath: TurnBackTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831791534, guid: 1586f517a38ca8b4eabc35e8804ffa40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109598544, guid: 1586f517a38ca8b4eabc35e8804ffa40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878392873752603477, guid: 1586f517a38ca8b4eabc35e8804ffa40,
+        type: 3}
+      propertyPath: CatchPower
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1586f517a38ca8b4eabc35e8804ffa40, type: 3}
---- !u!1 &1667060677 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1109598543, guid: 1586f517a38ca8b4eabc35e8804ffa40,
-    type: 3}
-  m_PrefabInstance: {fileID: 1667060676}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1667060678 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1831791533, guid: 1586f517a38ca8b4eabc35e8804ffa40,
-    type: 3}
-  m_PrefabInstance: {fileID: 1667060676}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1667060679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667060677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c335b396d6fe145b8353abcc89c832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFront: 0
---- !u!114 &1667060680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667060678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c335b396d6fe145b8353abcc89c832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFront: 1
 --- !u!4 &1683102477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013859883750, guid: 9f4e5dd2165039f4a878d1c1260761df,
