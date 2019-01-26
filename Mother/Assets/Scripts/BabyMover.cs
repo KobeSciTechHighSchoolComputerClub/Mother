@@ -40,10 +40,13 @@ public class BabyMover : MonoBehaviour
     void Update()
     {
         babymove();
-        if (searchWall() && !searchedWall)
+        if (searchWall() )
         {
-            searchedWall = true;
-            print("クララが立った！");
+            if (!searchedWall)
+            {
+                searchedWall = true;
+                print("クララが立った");
+            }
         }
         else
         {
