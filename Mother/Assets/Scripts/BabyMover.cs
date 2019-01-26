@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HOGE : MonoBehaviour
+public class BabyMover : MonoBehaviour
 {
     public float BabySpeed;
+    public float SearchRange;
+    public float SearchAngle;
     public GameObject HandStamp;
     public Transform[] HandPoints;
     private int handCount;
+    private bool searchedWall;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(makeHandStamps());
+        searchedWall = false;
     }
     private IEnumerator makeHandStamps()
     {
@@ -20,7 +24,7 @@ public class HOGE : MonoBehaviour
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
             GameObject d = Instantiate(HandStamp) as GameObject;
             d.transform.position = tra.position;
-            d.transform.rotation = Quaternion.LookRotation(Vector3.down, getForward());
+            d.transform.rotation = Quaternion.LookRotation(Vector3.up, getForward());
             d.transform.localScale = tra.localScale * d.transform.localScale.x;
             Destroy(d, 10f);
             yield return new WaitForSeconds(0.5f);
@@ -36,23 +40,48 @@ public class HOGE : MonoBehaviour
     void Update()
     {
         babymove();
+        if (searchWall() && !searchedWall)
+        {
+            searchedWall = true;
+            print("クララが立った！");
+        }
+        else
+        {
+            searchedWall = false;
+        }
     }
-
-    private void lookobject()
+    private bool searchWall()
     {
-
+        Vector3 fo = getForward();
+        Ray ray = new Ray(this.transform.position, fo);
+        RaycastHit hit = new RaycastHit();
+        float searchRange = SearchRange + getRadiusZ();
+        if (Physics.Raycast(ray, out hit, searchRange))
+        {
+            return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Rad2Deg);
+        }
+        return false;
     }
 
+    private float getRadiusZ()
+    {
+        BoxCollider boxCollider = this.GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            return boxCollider.size.z / 2f;
+        }
+        return 0;
+    }
     private void babymove()
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        float lv = Input.GetAxis("R_Stick_V");
-        float lh = Input.GetAxis("R_Stick_H");
-        lh += -Input.GetAxis("Mouse X");
-        lv += Input.GetAxis("Mouse Y");
-        this.transform.Rotate(0f, hor + lh, 0f, Space.World);
-        Camera.main.transform.Rotate(lv, 0f, 0f, Space.Self);
+        float rv = Input.GetAxis("R_Stick_V");
+        float rh = Input.GetAxis("R_Stick_H");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        this.transform.Rotate(0f, hor + rh + mouseX, 0f, Space.World);
+        Camera.main.transform.Rotate(rv + mouseY, 0f, 0f, Space.Self);
         Vector3 fo = getForward();
         this.transform.position += fo * BabySpeed * Time.deltaTime * ver;
     }
