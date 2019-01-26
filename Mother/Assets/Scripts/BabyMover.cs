@@ -15,6 +15,8 @@ public class BabyMover : MonoBehaviour
     private bool searchedWall;
     public bool canOperate;
     public LayerMask Mask;
+    public float TurnBackTime;
+    private bool isTurning;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class BabyMover : MonoBehaviour
         searchedWall = false;
         canOperate = true;
         CameraAC = this.GetComponent<Animator>();
+        isTurning = false;
     }
     private IEnumerator makeHandStamps()
     {
@@ -29,11 +32,11 @@ public class BabyMover : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
-            Ray ray = new Ray(tra.position, Vector3.down);
-            if (!Physics.Raycast(ray, SearchRange * 10f,Mask)) continue;
+            RaycastHit hit = new RaycastHit();
+            if (!Physics.Raycast(tra.position,-tra.up,out hit,Mask)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
-            d.transform.position = tra.position;
-            d.transform.rotation = Quaternion.LookRotation(Vector3.up, getForward());
+            d.transform.position = hit.point;
+            d.transform.rotation = Quaternion.LookRotation(hit.normal, getForward());
             d.transform.localScale = tra.localScale * d.transform.localScale.x;
             Destroy(d, 10f);
         }
@@ -147,6 +150,24 @@ public class BabyMover : MonoBehaviour
 
     public void TurnBack()
     {
+        if (isTurning) return;
+        isTurning = true;
+        StartCoroutine(turnBack());
+    }
 
+    private IEnumerator turnBack()
+    {
+        canOperate = false;
+        float startTime = Time.time;
+        Vector3 target = -this.transform.forward;
+        while (true)
+        {
+            if (Vector3.Dot(this.transform.forward, target) > 0.99f) break;
+            this.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(this.transform.forward, target, Time.deltaTime / TurnBackTime, 0f));
+            yield return null;
+        }
+        this.transform.rotation = Quaternion.LookRotation(target);
+        canOperate = true;
+        isTurning = false;
     }
 }
