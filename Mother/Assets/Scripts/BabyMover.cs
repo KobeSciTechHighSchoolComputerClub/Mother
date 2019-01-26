@@ -33,11 +33,11 @@ public class BabyMover : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             Transform tra = HandPoints[handCount = (handCount + 1) % HandPoints.Length];
             RaycastHit hit = new RaycastHit();
-            if (!Physics.Raycast(tra.position, -tra.up, out hit,SearchRange*3f, Mask)) continue;
+            if (!Physics.Raycast(tra.position, -tra.up, out hit, SearchRange * 3f, Mask)) continue;
             GameObject d = Instantiate(HandStamp) as GameObject;
             d.GetComponentInChildren<Animator>().SetBool("Scratching", CameraAC.GetBool("Standing"));
             d.transform.position = hit.point + hit.normal * 0.01f;
-            d.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.Cross(this.transform.right,hit.normal));
+            d.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.Cross(this.transform.right, hit.normal));
             d.transform.localScale = tra.localScale * d.transform.localScale.x;
             Destroy(d, 10f);
         }
@@ -56,7 +56,7 @@ public class BabyMover : MonoBehaviour
             return;
         }
         babymove();
-        if (searchWall() )
+        if (searchWall())
         {
             if (!searchedWall)
             {
@@ -66,11 +66,26 @@ public class BabyMover : MonoBehaviour
         }
         else
         {
-            if (searchedWall)
+            if (CameraAC.GetBool("Standing"))
             {
                 CameraAC.SetBool("Standing", false);
             }
             searchedWall = false;
+        }
+
+        Vector3 fo = getForward();
+        Ray ray = new Ray(this.transform.position, fo);
+        RaycastHit hit = new RaycastHit();
+        float searchRange = SearchRange + getRadiusZ();
+        if (Physics.Raycast(ray, out hit, searchRange, Mask))
+        {
+            if(hit.collider.tag == "CanClimb")
+            {
+                if (Input.GetAxis("Vertical") > 0)
+                {
+                    this.transform.position += this.transform.forward * 0.4f + Vector3.up * hit.collider.GetComponent<BoxCollider>().size.y;
+                }
+            }
         }
     }
     private bool searchWall()
@@ -79,7 +94,7 @@ public class BabyMover : MonoBehaviour
         Ray ray = new Ray(this.transform.position, fo);
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
-        if (Physics.Raycast(ray, out hit, searchRange,Mask))
+        if (Physics.Raycast(ray, out hit, searchRange, Mask))
         {
             return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Deg2Rad);
         }
@@ -90,7 +105,7 @@ public class BabyMover : MonoBehaviour
         Ray ray = new Ray(this.transform.position, getForward());
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
-        Physics.Raycast(ray, out hit, searchRange,Mask);
+        Physics.Raycast(ray, out hit, searchRange, Mask);
         return -hit.normal;
     }
     private IEnumerator lookWall()
@@ -124,7 +139,7 @@ public class BabyMover : MonoBehaviour
             return boxCollider.size.z / 2f;
         }
         SphereCollider sphereCollider = this.GetComponent<SphereCollider>();
-        if(sphereCollider != null)
+        if (sphereCollider != null)
         {
             return sphereCollider.radius;
         }
