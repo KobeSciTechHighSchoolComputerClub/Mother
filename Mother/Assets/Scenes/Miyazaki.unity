@@ -4985,6 +4985,11 @@ PrefabInstance:
       propertyPath: changeSiteImage
       value: 
       objectReference: {fileID: 1469183218}
+    - target: {fileID: 6269056353008953704, guid: 2947af4a59c1cb945b0b825204b896bc,
+        type: 3}
+      propertyPath: NextStage.m_SceneName
+      value: Miyazaki2
+      objectReference: {fileID: 0}
     - target: {fileID: 5613438678681366477, guid: 2947af4a59c1cb945b0b825204b896bc,
         type: 3}
       propertyPath: m_LocalPosition.z

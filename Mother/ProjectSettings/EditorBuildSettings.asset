@@ -8,4 +8,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Miyazaki.unity
     guid: dc32fb31cf475b24799a89cab91aea3b
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 3b7a396b111c36f4b9de4b5561ad69be
+  - enabled: 1
+    path: Assets/Scenes/Miyazaki2.unity
+    guid: f0735a1ed70f49340b8030ac439d9cc2
+  - enabled: 1
+    path: Assets/Scenes/Miyazaki3.unity
+    guid: 6da4476d25084b14e940d0b0eb62db2d
+  - enabled: 1
+    path: Assets/Scenes/Omoto.unity
+    guid: 45bcf86907516f14587b10a6c710ff3a
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 5643cb02d0cbea741872fa38ad043c48
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 9cae0d7641d8e44479d8a15a655d056a
   m_configObjects: {}

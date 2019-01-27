@@ -43,6 +43,8 @@ public class BabyAction : MonoBehaviour
             {
                 hit.collider.GetComponent<Animator>().SetBool("open", true);
                 GameManager.gameManager.GatchaSound();
+                GameManager.gameManager.screenFadeIn();
+                GameManager.gameManager.LoadNextScene(3f);
             }
         }
         if (Input.GetButtonUp("Fire1"))

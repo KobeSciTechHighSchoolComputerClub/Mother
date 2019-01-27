@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ScreenFader screenFader;
     public AudioSource BGM, SE;
     public AudioClip BGMclip, CallMom, Gatcha;
+    public SceneObject NextStage;
     void Start()
     {
         line = new bool[4];
@@ -42,6 +44,21 @@ public class GameManager : MonoBehaviour
         BGM.clip = BGMclip;
         BGM.Play();
 
+    }
+
+    public void LoadNextScene(float delay = 1f)
+    {
+        Invoke("loadNextScene", delay);
+    }
+
+    void loadNextScene()
+    {
+        SceneManager.LoadScene(NextStage);
+    }
+
+    public void screenFadeIn()
+    {
+        screenFader.FadeInScreen(3f);
     }
 
     public void SetClimb(bool flag)
