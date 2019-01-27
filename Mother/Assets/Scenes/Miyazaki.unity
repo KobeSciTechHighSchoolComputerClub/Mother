@@ -4197,6 +4197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimsAssets_Door
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010346633862, guid: 9f4e5dd2165039f4a878d1c1260761df, type: 3}
+      propertyPath: m_TagString
+      value: DoorKnob
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013859883750, guid: 9f4e5dd2165039f4a878d1c1260761df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.3597
@@ -4267,6 +4271,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f4e5dd2165039f4a878d1c1260761df, type: 3}
+--- !u!1 &1923652227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000010346633862, guid: 9f4e5dd2165039f4a878d1c1260761df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1923652226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1923652228
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923652227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13050036, y: 0.23503461, z: 0.14722757}
+  m_Center: {x: -0.53507614, y: 0.0904048, z: 1.0450686}
 --- !u!1001 &1932045737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4962,5 +4985,10 @@ PrefabInstance:
       propertyPath: changeSiteImage
       value: 
       objectReference: {fileID: 1469183218}
+    - target: {fileID: 5613438678681366477, guid: 2947af4a59c1cb945b0b825204b896bc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2947af4a59c1cb945b0b825204b896bc, type: 3}

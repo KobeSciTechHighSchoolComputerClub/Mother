@@ -30,15 +30,20 @@ public class BabyAction : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            
             if (hit.collider == null) return;
-            if (hit.collider.tag != "CanMove") return;
-            GameObject d = new GameObject();
-            d.transform.position = hit.point;
-            d.transform.parent = hit.collider.transform;
-            catchLength = hit.distance;
-            CatchPoint = d;
-            GameManager.gameManager.SetGrub(true);
+            if (hit.collider.tag == "CanMove")
+            {
+                GameObject d = new GameObject();
+                d.transform.position = hit.point;
+                d.transform.parent = hit.collider.transform;
+                catchLength = hit.distance;
+                CatchPoint = d;
+                GameManager.gameManager.SetGrub(true);
+            }else if(hit.collider.tag == "DoorKnob")
+            {
+                hit.collider.GetComponent<Animator>().SetBool("open", true);
+                GameManager.gameManager.GatchaSound();
+            }
         }
         if (Input.GetButtonUp("Fire1"))
         {
