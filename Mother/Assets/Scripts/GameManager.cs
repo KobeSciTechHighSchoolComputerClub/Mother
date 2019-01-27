@@ -23,6 +23,14 @@ public class GameManager : MonoBehaviour
         intro();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     public void GatchaSound()
     {
         SE.clip = Gatcha;
