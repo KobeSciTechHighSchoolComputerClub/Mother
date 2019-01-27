@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public ChangeSiteImage changeSiteImage;
     public ScreenFader screenFader;
     public AudioSource BGM, SE;
+    public AudioClip BGMclip, CallMom;
     void Start()
     {
         line = new bool[4];
@@ -22,13 +23,19 @@ public class GameManager : MonoBehaviour
 
     void intro()
     {
-
-        Invoke("screenFadeIn", 2.0f);
+        SE.clip = CallMom;
+        SE.Play();
+        screenFader.FadeInText(1f);
+        Invoke("screenFadeOut", 5f);
     }
 
-    void screenFadeIn()
+    void screenFadeOut()
     {
-        screenFader.FadeIn(2.0f);
+        screenFader.FadeOutScreen(2f);
+        screenFader.FadeOutText(1f);
+        BGM.clip = BGMclip;
+        BGM.Play();
+
     }
 
     public void SetClimb(bool flag)

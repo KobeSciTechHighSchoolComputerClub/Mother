@@ -6,14 +6,30 @@ using UnityEngine.UI;
 public class ScreenFader : MonoBehaviour
 {
     public Image ScreenImage;
+    public Text ScreenText;
 
-    public void FadeIn(float fadeTime)
+    private void Start()
+    {
+        ScreenText.canvasRenderer.SetAlpha(0.0f);
+    }
+
+    public void FadeInScreen(float fadeTime)
+    {
+        ScreenImage.CrossFadeAlpha(1f, fadeTime, false);
+    }
+
+    public void FadeInText(float fadeTime)
+    {
+        ScreenText.CrossFadeAlpha(1f, fadeTime, false);
+    }
+
+    public void FadeOutScreen(float fadeTime)
     {
         ScreenImage.CrossFadeAlpha(0f, fadeTime, false);
     }
 
-    public void FadeOut(float fadeTime)
+    public void FadeOutText(float fadeTime)
     {
-        ScreenImage.CrossFadeAlpha(1f, fadeTime, false);
+        ScreenText.CrossFadeAlpha(0f, fadeTime, false);
     }
 }

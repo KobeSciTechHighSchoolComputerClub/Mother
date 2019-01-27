@@ -4492,5 +4492,10 @@ PrefabInstance:
       propertyPath: changeSiteImage
       value: 
       objectReference: {fileID: 1469183218}
+    - target: {fileID: 6269056353008953704, guid: 2947af4a59c1cb945b0b825204b896bc,
+        type: 3}
+      propertyPath: BGMclip
+      value: 
+      objectReference: {fileID: 8300000, guid: aef4c0a747ec9464abaa18f1a8ae48b1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2947af4a59c1cb945b0b825204b896bc, type: 3}
