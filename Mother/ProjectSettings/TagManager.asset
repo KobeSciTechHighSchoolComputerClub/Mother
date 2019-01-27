@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CanMove
+  - CanClimb
   layers:
   - Default
   - TransparentFX

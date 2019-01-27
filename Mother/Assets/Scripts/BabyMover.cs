@@ -17,6 +17,7 @@ public class BabyMover : MonoBehaviour
     public LayerMask Mask;
     public float TurnBackTime;
     private bool isTurning;
+    public GameObject OtherCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,12 +56,29 @@ public class BabyMover : MonoBehaviour
         {
             return;
         }
+        Vector3 fo = getForward();
+        Ray ray = new Ray(this.transform.position, fo);
+        RaycastHit hit = new RaycastHit();
+        float searchRange = SearchRange + getRadiusZ();
+        if (Physics.Raycast(ray, out hit, searchRange, Mask))
+        {
+            if (hit.collider.tag == "CanClimb" && CameraAC.GetBool("Standing"))
+            {
+                if (Input.GetAxis("Vertical") > 0)
+                {
+                    canOperate = false;
+                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * hit.collider.GetComponent<BoxCollider>().size.y));
+                }
+            }
+        }
         babymove();
+        if (!canOperate) return;
         if (searchWall())
         {
             if (!searchedWall)
             {
                 searchedWall = true;
+                canOperate = false;
                 StartCoroutine(lookWall());
             }
         }
@@ -73,20 +91,32 @@ public class BabyMover : MonoBehaviour
             searchedWall = false;
         }
 
-        Vector3 fo = getForward();
-        Ray ray = new Ray(this.transform.position, fo);
-        RaycastHit hit = new RaycastHit();
-        float searchRange = SearchRange + getRadiusZ();
-        if (Physics.Raycast(ray, out hit, searchRange, Mask))
+    }
+
+    private IEnumerator Climbing(Vector3 relative)
+    {
+        isTurning = true;
+        CameraAC.SetBool("Standing", false);
+        CameraAC.SetTrigger("GoIdle");
+        OtherCamera.GetComponent<Camera>().depth = 1;
+        OtherCamera.transform.position = Camera.main.transform.position;
+        OtherCamera.transform.rotation = Camera.main.transform.rotation;
+        float starttime = Time.time;
+        Vector3 startpoint = Camera.main.transform.position;
+        Vector3 goalpoint = this.transform.position + relative;
+        float usetime = (goalpoint - startpoint).magnitude / BabySpeed;
+        this.transform.position += relative;
+        while (true)
         {
-            if(hit.collider.tag == "CanClimb")
-            {
-                if (Input.GetAxis("Vertical") > 0)
-                {
-                    this.transform.position += this.transform.forward * 0.4f + Vector3.up * hit.collider.GetComponent<BoxCollider>().size.y;
-                }
-            }
+            float nowtime = Time.time - starttime;
+            if (nowtime > usetime) break;
+            OtherCamera.transform.position = Vector3.Lerp(startpoint, goalpoint, nowtime / usetime);
+            yield return null;
         }
+        OtherCamera.GetComponent<Camera>().depth = -2;
+        isTurning = false;
+        this.GetComponent<CapsuleCollider>().enabled = true;
+        canOperate = true;
     }
     private bool searchWall()
     {
@@ -112,7 +142,6 @@ public class BabyMover : MonoBehaviour
     {
         Vector3 sv = getForward();
         Vector3 tv = getWallForward();
-        canOperate = false;
         float usetime = Mathf.Abs(Mathf.Acos(Vector3.Dot(tv, sv)) * Mathf.Rad2Deg / 50f);
         float startTime = Time.time;
         while (true)
@@ -168,12 +197,12 @@ public class BabyMover : MonoBehaviour
     {
         if (isTurning) return;
         isTurning = true;
+        canOperate = false;
         StartCoroutine(turnBack());
     }
 
     private IEnumerator turnBack()
     {
-        canOperate = false;
         float startTime = Time.time;
         Vector3 target = -this.transform.forward;
         while (true)
