@@ -18,22 +18,32 @@ public class BabyAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Range, Mask);
+        if (hit.collider != null && hit.collider.tag == "CanMove")
+        {
+            GameManager.gameManager.SetHand(true);
+        }
+        else
+        {
+            GameManager.gameManager.SetHand(false);
+        }
         if (Input.GetButtonDown("Fire1"))
         {
             if(CatchPoint != null)
             {
                 Destroy(CatchPoint);
+                GameManager.gameManager.SetGrub(false);
                 return;
             }
-
-            RaycastHit hit = new RaycastHit();
-            if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Range, Mask)) return;
+            if (hit.collider == null) return;
             if (hit.collider.tag != "CanMove") return;
             GameObject d = new GameObject();
             d.transform.position = hit.point;
             d.transform.parent = hit.collider.transform;
             catchLength = hit.distance;
             CatchPoint = d;
+            GameManager.gameManager.SetGrub(true);
         }
 
         if(CatchPoint != null)

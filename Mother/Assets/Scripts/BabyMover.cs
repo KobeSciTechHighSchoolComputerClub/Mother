@@ -89,6 +89,7 @@ public class BabyMover : MonoBehaviour
                 CameraAC.SetBool("Standing", false);
             }
             searchedWall = false;
+            GameManager.gameManager.SetClimb(false);
         }
 
     }
@@ -126,6 +127,10 @@ public class BabyMover : MonoBehaviour
         float searchRange = SearchRange + getRadiusZ();
         if (Physics.Raycast(ray, out hit, searchRange, Mask))
         {
+            if (hit.collider.tag == "CanClimb")
+            {
+                GameManager.gameManager.SetClimb(true);
+            }
             return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Deg2Rad);
         }
         return false;
