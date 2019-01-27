@@ -64,4 +64,13 @@ public class BabyAction : MonoBehaviour
             CatchPoint.transform.parent.GetComponent<Rigidbody>().AddForce(point);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Goal")
+        {
+            GameManager.gameManager.screenFadeIn();
+            GameManager.gameManager.LoadNextScene(3f);
+        }
+    }
 }
