@@ -407,10 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80df3aed740341f469f4b288f658bb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BabySpeed: 0.23
+  BabySpeed: 0.5
   SearchRange: 0.1
   SearchAngle: 10
-  CanClimbHeight: 0.3
+  CanClimbHeight: 0.4
   HandStamp: {fileID: 3922059574150891174, guid: 9e037ee1fc2f2404bbebad54765c3343,
     type: 3}
   HandPoints:
