@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     private bool[] line;
     public ChangeSiteImage changeSiteImage;
+    public ScreenFader screenFader;
+    public AudioSource BGM, SE;
     void Start()
     {
         line = new bool[4];
@@ -15,7 +17,20 @@ public class GameManager : MonoBehaviour
             line[i] = false;
         }
         gameManager = this.GetComponent<GameManager>();
+        intro();
     }
+
+    void intro()
+    {
+
+        Invoke("screenFadeIn", 2.0f);
+    }
+
+    void screenFadeIn()
+    {
+        screenFader.FadeIn(2.0f);
+    }
+
     public void SetClimb(bool flag)
     {
         line[3] = flag;
