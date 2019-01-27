@@ -68,11 +68,11 @@ public class BabyMover : MonoBehaviour
             {
                 if (Input.GetAxis("Vertical") > 0)
                 {
-                    canOperate = false;
                     BoxCollider col = hit.collider.GetComponent<BoxCollider>();
                     float relativey = (col.size.y / 2 + col.center.y) * hit.transform.localScale.y +hit.collider.transform.position.y - this.transform.position.y + this.GetComponent<CapsuleCollider>().radius;
                     if (relativey < CanClimbHeight)
                     {
+                        canOperate = false;
                         StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * (relativey)));
                     }
                 }
