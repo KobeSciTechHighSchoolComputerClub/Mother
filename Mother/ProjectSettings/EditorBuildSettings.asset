@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 9cae0d7641d8e44479d8a15a655d056a
+  - enabled: 1
     path: Assets/Scenes/Miyazaki.unity
     guid: dc32fb31cf475b24799a89cab91aea3b
   - enabled: 1
@@ -23,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 5643cb02d0cbea741872fa38ad043c48
-  - enabled: 1
-    path: Assets/Scenes/Title.unity
-    guid: 9cae0d7641d8e44479d8a15a655d056a
   m_configObjects: {}
