@@ -30,12 +30,7 @@ public class BabyAction : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            if(CatchPoint != null)
-            {
-                Destroy(CatchPoint);
-                GameManager.gameManager.SetGrub(false);
-                return;
-            }
+            
             if (hit.collider == null) return;
             if (hit.collider.tag != "CanMove") return;
             GameObject d = new GameObject();
@@ -45,7 +40,15 @@ public class BabyAction : MonoBehaviour
             CatchPoint = d;
             GameManager.gameManager.SetGrub(true);
         }
-
+        if (Input.GetButtonUp("Fire1"))
+        {
+            if (CatchPoint != null)
+            {
+                Destroy(CatchPoint);
+                GameManager.gameManager.SetGrub(false);
+                return;
+            }
+        }
         if(CatchPoint != null)
         {
             Vector3 point = this.transform.position + this.transform.forward * catchLength;

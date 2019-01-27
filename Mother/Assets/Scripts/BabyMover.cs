@@ -131,6 +131,7 @@ public class BabyMover : MonoBehaviour
             {
                 GameManager.gameManager.SetClimb(true);
             }
+            if (hit.collider.tag == "CanMove") return false;
             return Vector3.Dot(-hit.normal, fo) > Mathf.Cos(SearchAngle * Mathf.Deg2Rad);
         }
         return false;
