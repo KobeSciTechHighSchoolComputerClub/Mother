@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public ChangeSiteImage changeSiteImage;
     public ScreenFader screenFader;
     public AudioSource BGM, SE;
-    public AudioClip BGMclip, CallMom;
+    public AudioClip BGMclip, CallMom, Gatcha;
     void Start()
     {
         line = new bool[4];
@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
         }
         gameManager = this.GetComponent<GameManager>();
         intro();
+    }
+
+    void GatchaSound()
+    {
+        SE.clip = Gatcha;
+        SE.Play();
     }
 
     void intro()
