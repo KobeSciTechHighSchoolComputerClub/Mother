@@ -131,7 +131,7 @@ MonoBehaviour:
   SE: {fileID: 2294219607359780749}
   BGMclip: {fileID: 8300000, guid: aef4c0a747ec9464abaa18f1a8ae48b1, type: 3}
   CallMom: {fileID: 8300000, guid: 3db75c9397f5bc442957392706eed993, type: 3}
-  Gatcha: {fileID: 0}
+  Gatcha: {fileID: 8300000, guid: 5fa626b40f2961b4f90326aac299f403, type: 3}
 --- !u!1 &7358258918501440627
 GameObject:
   m_ObjectHideFlags: 0
