@@ -7,6 +7,7 @@ public class BabyMover : MonoBehaviour
     public float BabySpeed;
     public float SearchRange;
     public float SearchAngle;
+    public float CanClimbHeight;
     public GameObject HandStamp;
     public Transform[] HandPoints;
     private Animator CameraAC;
@@ -18,6 +19,7 @@ public class BabyMover : MonoBehaviour
     public float TurnBackTime;
     private bool isTurning;
     public GameObject OtherCamera;
+    public Transform RaycastPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +59,7 @@ public class BabyMover : MonoBehaviour
             return;
         }
         Vector3 fo = getForward();
-        Ray ray = new Ray(this.transform.position, fo);
+        Ray ray = new Ray(RaycastPoint.position, fo);
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
         if (Physics.Raycast(ray, out hit, searchRange, Mask))
@@ -68,8 +70,11 @@ public class BabyMover : MonoBehaviour
                 {
                     canOperate = false;
                     BoxCollider col = hit.collider.GetComponent<BoxCollider>();
-
-                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * ((col.size.y/2 + col.center.y) * hit.transform.localScale.y + hit.collider.transform.position.y -this.transform.position.y + this.GetComponent<CapsuleCollider>().radius)));
+                    float relativey = (col.size.y / 2 + col.center.y) * hit.transform.localScale.y +hit.collider.transform.position.y - this.transform.position.y + this.GetComponent<CapsuleCollider>().radius;
+                    if (relativey < CanClimbHeight)
+                    {
+                        StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * (relativey)));
+                    }
                 }
             }
         }
@@ -124,7 +129,7 @@ public class BabyMover : MonoBehaviour
     private bool searchWall()
     {
         Vector3 fo = getForward();
-        Ray ray = new Ray(this.transform.position, fo);
+        Ray ray = new Ray(RaycastPoint.position, fo);
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
         if (Physics.Raycast(ray, out hit, searchRange, Mask))
@@ -140,7 +145,7 @@ public class BabyMover : MonoBehaviour
     }
     public Vector3 getWallForward()
     {
-        Ray ray = new Ray(this.transform.position, getForward());
+        Ray ray = new Ray(RaycastPoint.position, getForward());
         RaycastHit hit = new RaycastHit();
         float searchRange = SearchRange + getRadiusZ();
         Physics.Raycast(ray, out hit, searchRange, Mask);
