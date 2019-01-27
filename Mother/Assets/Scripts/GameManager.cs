@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         intro();
     }
 
-    void GatchaSound()
+    public void GatchaSound()
     {
         SE.clip = Gatcha;
         SE.Play();
