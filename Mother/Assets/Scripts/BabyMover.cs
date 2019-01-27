@@ -67,7 +67,9 @@ public class BabyMover : MonoBehaviour
                 if (Input.GetAxis("Vertical") > 0)
                 {
                     canOperate = false;
-                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * hit.collider.GetComponent<BoxCollider>().size.y));
+                    BoxCollider col = hit.collider.GetComponent<BoxCollider>();
+
+                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * (col.size.y/2 + col.center.y + hit.collider.transform.position.y -this.transform.position.y)));
                 }
             }
         }
