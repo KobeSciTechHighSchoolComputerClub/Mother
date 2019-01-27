@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundFader : MonoBehaviour
 {
-    public void FadeIn()
+    public float MaxVolume = 1f;
+
+    public void FadeIn(float fadeTime)
     {
         GetComponent<AudioSource>().Play();
-        StartCoroutine(fadeIn(10f));
+        StartCoroutine(fadeIn(fadeTime));
     }
 
-    public void FadeOut()
+    public void FadeOut(float fadeTime)
     {
-        StartCoroutine(fadeOut(1f));
+        StartCoroutine(fadeOut(fadeTime));
     }
 
     IEnumerator fadeIn(float fadeTime)
     {
         float t = Time.time;
+        GetComponent<AudioSource>().volume = 0f;
         while (true)
         {
             float tt = Time.time - t;
@@ -25,7 +28,7 @@ public class SoundManager : MonoBehaviour
             {
                 break;
             }
-            GetComponent<AudioSource>().volume = Mathf.Lerp(0f, 1f, tt / fadeTime);
+            GetComponent<AudioSource>().volume = Mathf.Lerp(0f, MaxVolume, tt / fadeTime);
             yield return null;
         }
     }
@@ -33,6 +36,7 @@ public class SoundManager : MonoBehaviour
     IEnumerator fadeOut(float fadeTime)
     {
         float t = Time.time;
+        float v = GetComponent<AudioSource>().volume;
         while (true)
         {
             float tt = Time.time - t;
@@ -41,7 +45,7 @@ public class SoundManager : MonoBehaviour
                 GetComponent<AudioSource>().Stop();
                 break;
             }
-            GetComponent<AudioSource>().volume = Mathf.Lerp(1f, 0f, tt / fadeTime);
+            GetComponent<AudioSource>().volume = Mathf.Lerp(v, 0f, tt / fadeTime);
             yield return null;
         }
     }
