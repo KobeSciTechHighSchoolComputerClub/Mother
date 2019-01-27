@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118b3d61fecc55043a8418a10f2648b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlinkSpeed: 2
+  BlinkSpeed: 1
 --- !u!1 &1404066281
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +748,7 @@ MonoBehaviour:
   - {fileID: 1771400104}
   - {fileID: 1437454667}
   FirstStage:
-    m_SceneName: Miyazaki
+    m_SceneName: Title
   textBlink: {fileID: 675440062}
 --- !u!4 &1410721372
 Transform:
@@ -792,7 +792,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a0985b56281e99549b05ba3406dd5e10, type: 3}
+  m_audioClip: {fileID: 8300000, guid: be2964ab6fae0984b86ac4f98cd30d12, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
@@ -1015,7 +1015,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 751ee75f5c21a1a49b7a63e2c65e7b93, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 958dca26222419e4b8c1a679e73f6b67, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
