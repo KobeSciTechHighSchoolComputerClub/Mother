@@ -69,7 +69,7 @@ public class BabyMover : MonoBehaviour
                     canOperate = false;
                     BoxCollider col = hit.collider.GetComponent<BoxCollider>();
 
-                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * (col.size.y/2 + col.center.y + hit.collider.transform.position.y -this.transform.position.y)));
+                    StartCoroutine(Climbing(this.transform.forward * 0.4f + Vector3.up * ((col.size.y/2 + col.center.y) * hit.transform.localScale.y + hit.collider.transform.position.y -this.transform.position.y + this.GetComponent<CapsuleCollider>().radius)));
                 }
             }
         }
